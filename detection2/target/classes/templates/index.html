@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zn-Ch">
+<header th:replace="header::header-fragment"></header>
+<body class="hold-transition sidebar-mini sidebar-collapse skin-blue">
+<div class="wrapper">
+    <!-- 引入页面头header-fragment -->
+    <div th:replace="header::header-nav"></div>
+    <!-- 引入工具栏sidebar-fragment -->
+    <div th:replace="sidebar::sidebar-fragment(${path})"></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card-header">
+                    <h3 class="card-title">病害识别量化</h3>
+                </div>
+                <!-- 模态框,用于信息的展示 -->
+                <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body" id="infoModalContext">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <img th:src="@{/dist/img/crack.png}" class="rounded img-fluid img-thumbnail" alt="...">
+                                        <blockquote class="blockquote text-center">
+                                            <p class="mb-auto">混凝土裂缝</p>
+                                        </blockquote>
+                                    </div>
+                                    <div class="col-sm">
+                                        <img th:src="@{/dist/img/rebar.png}" class="rounded img-fluid img-thumbnail" alt="...">
+                                        <blockquote class="blockquote text-center">
+                                            <p class="mb-auto">钢筋锈蚀</p>
+                                        </blockquote>
+                                    </div>
+                                    <div class="col-sm">
+                                        <img th:src="@{/dist/img/spall.png}" class="rounded img-fluid img-thumbnail" alt="...">
+                                        <blockquote class="blockquote text-center">
+                                            <p class="mb-auto">混凝土剥落</p>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">我知道了
+                                </button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal -->
+                </div>
+                <!-- 模态框,用于弹出上传单张图像 -->
+                <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <blockquote class="blockquote text-center">
+                                    <p class="mb-auto">单张图像检测</p>
+                                </blockquote>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form" id="detect-image-form" name="detect-image-form"
+                                      enctype="multipart/form-data"
+                                      method="post">
+                                    <div class="row">
+                                        <div class="grid-btn">
+                                            <div class="col-6 form-group">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">拍摄距离</span>
+                                                    </div>
+                                                    <input type="number" class="form-control" id="imageShotDistance"
+                                                           name="imageShotDistance">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">毫米(mm)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 form-group">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">相机焦距</span>
+                                                    </div>
+                                                    <input type="number" class="form-control" id="imageFocalLength"
+                                                           name="imageFocalLength">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">毫米(mm)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 form-group">
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input form-control"
+                                                       id="detect-image" accept="image/png, image/jpeg, image/jpeg">
+                                                <label class="custom-file-label" for="detect-image">选择文件</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <br>
+                                <div class="alert alert-danger align-items-center row" role="alert"
+                                     id="detect-image-alert" hidden>
+                                    <div class="col-4">
+                                        <i class="fa fa-circle-o-notch fa-spin fa-4x fa-fw"></i>
+                                        <span class="sr-only"></span>
+                                    </div>
+                                    <div class="col-8">
+                                        <h4>正在上传图像,请不要刷新页面!</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" onclick="hideModal('imageModal')">关闭
+                                </button>
+                                <button type="button" class="btn btn-primary" id="upload">上传
+                                </button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal -->
+                </div>
+                <!-- 模态框, 桥梁详情 -->
+                <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     aria-hidden="true" data-backdrop=”static”>
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <!-- 两个部分,左边是数据详情,右边是统计图 -->
+                                    <div class="col-6">
+                                        <div class="card-primary card-outline text-center">
+                                            <h5 class="card-title" id="bridgeName">桥梁名称</h5>
+                                            <div class="card-body">
+                                                <span id="bridgeId" hidden></span>
+                                                <div class="list-group">
+                                                    <button class="list-group-item list-group-item-action" id="struct"
+                                                            onmouseenter="activate(this)"
+                                                            onmouseleave="unActivate(this)"></button>
+                                                    <button class="list-group-item list-group-item-action" id="span"
+                                                            onmouseenter="activate(this)"
+                                                            onmouseleave="unActivate(this)"></button>
+                                                    <button class="list-group-item list-group-item-action"
+                                                            id="structNum"
+                                                            onmouseenter="activate(this)"
+                                                            onmouseleave="unActivate(this)"></button>
+                                                    <button class="list-group-item list-group-item-action" id="imageNum"
+                                                            onmouseenter="activate(this)"
+                                                            onmouseleave="unActivate(this)"></button>
+                                                    <button class="list-group-item list-group-item-action"
+                                                            id="detectTime"
+                                                            onmouseenter="activate(this)"
+                                                            onmouseleave="unActivate(this)"></button>
+                                                    <button class="list-group-item list-group-item-action " id="status"
+                                                            onmouseenter="activate(this)"
+                                                            onmouseleave="unActivate(this)"></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card-primary card-outline">
+                                            <div class="card-body">
+                                                <div class="chart-container">
+                                                    <canvas id="pieChart"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success float-right mr-3"
+                                            onclick="downloadReport()" id="downloadBtn"><span
+                                            class="fa fa-download"></span>&nbsp;检测报告
+                                    </button>
+                                    <button type="button" class="btn btn-secondary float-right"
+                                            onclick="hideModal('detailModal')">确定
+                                    </button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal -->
+                    </div>
+                </div><!-- /.container-fluid -->
+                <!-- /.card-body -->
+                <!-- 主界面 -->
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box mb-3" id="detect">
+                            <span class="info-box-icon bg-success elevation-1"><ion-icon
+                                    name="arrow-back-circle-outline"></ion-icon></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">开始检测</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-info elevation-1"><ion-icon
+                                    name="aperture-outline"></ion-icon></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">已检测桥梁</span>
+                                <span class="info-box-number" id="bridgeNumTag">10</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <div class="clearfix hidden-md-up"></div>
+                    <!-- /.col -->
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box mb-3" id="toImageBtn">
+                            <span class="info-box-icon bg-danger elevation-1"><ion-icon
+                                    name="images-outline"></ion-icon></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">已检测图像</span>
+                                <span class="info-box-number" id="imageNumTag">41410</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+
+                    <!-- fix for small devices only -->
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box mb-3" id="damageClasses">
+                            <span class="info-box-icon bg-warning elevation-1"><ion-icon
+                                    name="build-outline"></ion-icon></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">支持的病害</span>
+                                <span class="info-box-number">3</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+                <!-- 表格 -->
+                <div class="card card-success card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">桥梁管理</h3>
+                    </div> <!-- /.card-body -->
+                    <div class="card-body">
+                        <div class="grid-btn">
+                            <input type="text" placeholder="名称/结构形式/跨境组合" id="keyword" class="form-control col-4 mr-2">&nbsp;
+                            <div class="btn-group mr-2">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false" id="process_text">
+                                    状&nbsp;&nbsp;&nbsp;&nbsp;态
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <button class="dropdown-item" type="button"
+                                            onclick="replaceText('process_text', '检测中')">检测中
+                                    </button>
+                                    <button class="dropdown-item" type="button"
+                                            onclick="replaceText('process_text', '已完成')">已完成
+                                    </button>
+                                    <button class="dropdown-item" type="button"
+                                            onclick="replaceText('process_text', '全&nbsp;&nbsp;&nbsp;部')">全&nbsp;&nbsp;&nbsp;&nbsp;部
+                                    </button>
+                                </div>
+                            </div>
+
+                            <input type="text" placeholder="输入起始时间" id="bridgeBeginTime"
+                                   class="form-control col-2 mr-2">
+
+                            <button class="btn btn-info" onclick="searchBridges()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索
+                            </button>
+                        </div>
+
+                        <table id="bridge_table"></table>
+                    </div><!-- /.card-body -->
+                </div>
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+    <!-- 引入页脚footer-fragment -->
+    <div th:replace="footer::footer-fragment"></div>
+</div>
+<!-- jQuery -->
+<script th:src="@{/plugins/jquery/jquery.js}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script th:src="@{/plugins/jQueryUI/jquery-ui.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/plugins/adminlte/adminlte.js}"></script>
+<script th:src="@{/plugins/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/plugins/fileinput/js/fileinput.js}"></script>
+<script th:src="@{/plugins/fileinput/js/theme.js}"></script>
+<script th:src="@{/plugins/fileinput/js/zh.js}"></script>
+<script th:src="@{/plugins/chart-js/chart.min.js}"></script>
+<script th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
+<script th:src="@{/plugins/bootstrap-table/js/bootstrap-table.min.js}"></script>
+<script th:src="@{/plugins/datetimepicker/jquery.datetimepicker.full.min.js}"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script th:src="@{/dist/js/public.js}"></script>
+<script th:src="@{/dist/js/index.js}"></script>
+<script th:src="@{/dist/js/bridge.js}"></script>
+</body>
+</html>

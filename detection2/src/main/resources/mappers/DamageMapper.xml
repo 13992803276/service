@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="puzz.xsliu.detection2.detection.mapper.DamageMapper">
+
+    <insert id="insert"  useGeneratedKeys="true" keyProperty="id">
+        insert into damage_tb(type, image_id, width, length, area, bridge_id, struct_id)
+        values (#{type}, #{imageId}, #{width}, #{length}, #{area}, #{bridgeId}, #{structId})
+    </insert>
+    <update id="update">
+        update damage_tb
+        <set>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="imageId != null">
+                image_id = #{imageId},
+            </if>
+            <if test="width != null">
+                width = #{width}
+            </if>
+            <if test="length != null">
+                length = #{length}
+            </if>
+            <if test="area != null">
+                area = #{area}
+            </if>
+            <if test="bridgeId != null">
+                bridge_id = #{bridgeId}
+            </if>
+            <if test="structId != null">
+                struct_id = #{structId}
+            </if>
+
+        </set>
+
+        where id = #{id}
+    </update>
+    <select id="list" resultType="puzz.xsliu.detection2.detection.entity.Damage">
+        select *
+        from damage_tb
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="imageId != null">
+                AND image_id = #{imageId}
+            </if>
+            <if test="type != null">
+                AND type = #{type}
+            </if>
+            <if test="bridgeId != null">
+                AND bridge_id = #{bridgeId}
+            </if>
+            <if test="structId != null">
+                AND struct_id = #{structId}
+            </if>
+        </where>
+    </select>
+    <select id="find" resultType="puzz.xsliu.detection2.detection.entity.Damage">
+        select * from damage_tb where id = #{id}
+    </select>
+    <select id="count" resultType="java.lang.Long">
+        select count(id) from damage_tb
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="imageId != null">
+                AND image_id = #{imageId}
+            </if>
+            <if test="type != null">
+                AND type = #{type}
+            </if>
+            <if test="bridgeId != null">
+                AND bridge_id = #{bridgeId}
+            </if>
+            <if test="structId != null">
+                AND struct_id = #{structId}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

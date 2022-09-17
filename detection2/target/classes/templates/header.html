@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header-fragment">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>FXDetection | Index</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="shortcut icon" th:href="@{/dist/img/b2.png}"/>
+    <link rel="stylesheet" th:href="@{/plugins/fontawesome/css/font-awesome.min.css}">
+    <!-- MAIN -->
+    <link rel="stylesheet" th:href="@{/dist/css/main.css}">
+    <!-- Boot Strap -->
+    <link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}"/>
+    <!-- Sweet Alert -->
+    <link rel="stylesheet" th:href="@{/plugins/sweetalert/sweetalert.css}"/>
+    <!-- JqGrid-->
+    <link rel="stylesheet" th:href="@{/plugins/jqgrid-5.3.0/ui.jqgrid-bootstrap4.css}"/>
+    <!-- AdminLte-->
+    <link rel="stylesheet" th:href="@{/plugins/adminlte/adminlte.css}">
+    <!-- file input -->
+    <link rel="stylesheet" th:href="@{/plugins/fileinput/css/fileinput.css}">
+    <link rel="stylesheet" th:href="@{/plugins/datetimepicker/jquery.datetimepicker.min.css}">
+    <!-- bootstrap -->
+    <link rel="stylesheet" th:href="@{/plugins/bootstrap-table/css/bootstrap-table.min.css}">
+</head>
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom" th:fragment="header-nav">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+        </li>
+    </ul>
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown" th:hidden="${path} == 'index'">
+            <a class="nav-link" th:href="@{/common/index}">
+                <i class="fa fa-home">&nbsp;&nbsp;首页</i>
+            </a>
+        </li>
+
+        <!-- 显示构件的命名规则 ,只有在检测桥梁页面才展示 -->
+        <li class="nav-item dropdown" th:hidden="${path}!='detect'">
+            <a class="nav-link" href="#" onclick="showModal('structNameRuleModal')">
+                <i class="fa fa-question-circle ">&nbsp;&nbsp;构件命名规则</i>
+            </a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link">
+                <i class="fa fa-sign-out" onclick="logout()">&nbsp;&nbsp;登出</i>
+            </a>
+        </li>
+    </ul>
+</nav>
+<!-- /.navbar -->
+</html>

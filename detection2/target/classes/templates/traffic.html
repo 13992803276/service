@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:replace="header::header-fragment"></header>
+<body class="hold-transition sidebar-mini sidebar-collapse">
+
+<div class="wrapper">
+    <!-- 引入页面头header-fragment -->
+    <div th:replace="header::header-nav"></div>
+    <!-- 引入工具栏sidebar-fragment -->
+    <div th:replace="sidebar::sidebar-fragment(${path})"></div>
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+            </div>
+        </div>
+        <div class="card-header">
+            <h3 class="card-title">交通量预测</h3>
+        </div> <!-- /.card-body -->
+        <div class="card-body">
+            <div class="grid-btn">
+                <input id="rootNo" placeholder="路段编号" type="text" class="form-control col-2 mr-2">
+                <span>原数据:</span><input id="fileName" name="FileName" type="file">
+                <button class="btn btn-info" onclick="importTraffic()"><i class="fa fa-upload"></i>上传</button>
+            </div>
+            <div class="grid-btn">
+                <input type="text" placeholder="路线编号" id="txt_root_no"
+                       class="form-control col-2 mr-2">
+
+                <button class="btn btn-info" onclick="searchTraffic()">
+                    <i class="fa fa-search"></i>&nbsp;搜索
+                </button>
+            </div>
+
+            <table id="traffic_table"></table>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script th:src="@{/plugins/jquery/jquery.js}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script th:src="@{/plugins/jQueryUI/jquery-ui.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/plugins/adminlte/adminlte.js}"></script>
+<script th:src="@{/plugins/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/plugins/fileinput/js/fileinput.js}"></script>
+<script th:src="@{/plugins/fileinput/js/theme.js}"></script>
+<script th:src="@{/plugins/fileinput/js/zh.js}"></script>
+<script th:src="@{/plugins/chart-js/chart.min.js}"></script>
+<script th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
+<script th:src="@{/plugins/bootstrap-table/js/bootstrap-table.min.js}"></script>
+<script th:src="@{/plugins/datetimepicker/jquery.datetimepicker.full.min.js}"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script th:src="@{/dist/js/traffic.js}"></script>
+
+</body>
+</html>

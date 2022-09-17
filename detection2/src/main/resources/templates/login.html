@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FXDetection | Login</title>
+  <link rel="shortcut icon" th:href="@{/dist/img/b2.png}"/>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" th:href="@{/plugins/fontawesome/css/font-awesome.min.css}">
+  <!-- 主题样式 -->
+  <link rel="stylesheet" th:href="@{/plugins/adminlte/adminlte.css}">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <!-- /.login-logo -->
+  <div class="card card-outline card-primary">
+    <div class="card-header text-center">
+      <a href="#" class="h1"><b>FX</b>Detection</a>
+    </div>
+    <div class="card-body">
+      <h3 class="login-box-msg">用户登录</h3>
+
+      <form name="loginForm" id="loginForm">
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="邮箱" id="email">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fa fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="密码" id="password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fa fa-key"></span>
+            </div>
+          </div>
+        </div>
+      </form>
+      <hr>
+      <div class="row text-center">
+        <div class="col-12">
+          <button class="btn btn-primary btn-block" onclick="login()">
+            登录
+          </button>
+        </div>
+      </div>
+      <div class="social-auth-links text-center">
+        <a class="btn btn-block" th:href="@{/common/register}"> 注册成为新用户 </a>
+        <a class="btn btn-block" th:href="@{/common/forget}"> 忘记密码 </a>
+      </div>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/plugins/adminlte/adminlte.js}"></script>
+
+<!-- login -->
+<script th:src="@{/dist/js/public.js}"></script>
+<script th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
+<script th:src="@{/plugins/sweetalert/sweetalert.min.js}"></script>
+</body>
+</html>

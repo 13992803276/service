@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="puzz.xsliu.detection2.detection.mapper.StructMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into struct_tb(bridge_id, shot_distance, focal_length, serial_number, part)
+        values (#{bridgeId}, #{shotDistance}, #{focalLength}, #{serialNumber}, #{part})
+    </insert>
+
+    <update id="update">
+        update struct_tb
+        <set>
+            <if test="bridgeId">
+                bridge_id = #{bridgeId},
+            </if>
+            <if test="shotDistance != null">
+                shot_distance = #{shotDistance},
+            </if>
+            <if test="focalLength != null">
+                focal_length = #{focalLength},
+            </if>
+            <if test="serialNumber != null">
+                serial_number = #{serialNumber},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="list" resultType="puzz.xsliu.detection2.detection.entity.Struct">
+        select
+        *
+        from struct_tb
+        <where>
+            <if test="bridgeId">
+                AND bridge_id = #{bridgeId}
+            </if>
+            <if test="serialNumber != null">
+                AND serial_number = #{serialNumber}
+            </if>
+        </where>
+    </select>
+    <select id="find" resultType="puzz.xsliu.detection2.detection.entity.Struct">
+        select * from struct_tb where id = #{id}
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select
+        count(*)
+        from struct_tb
+        <where>
+            <if test="bridgeId">
+                AND bridge_id = #{bridgeId}
+            </if>
+            <if test="serialNumber != null">
+                AND serial_number = #{serialNumber}
+            </if>
+        </where>
+    </select>
+</mapper>

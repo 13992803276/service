@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<aside th:fragment="sidebar-fragment(path)" class="main-sidebar sidebar-dark-primary elevation-4 sidebar-collapse">
+<!--    &lt;!&ndash; Brand Logo &ndash;&gt;-->
+<!--    <a th:href="@{/common/index}" class="brand-link">-->
+<!--        <img th:src="@{/dist/img/pp.png}" alt="ssm-cluster Logo" class="brand-image img-circle elevation-3"-->
+<!--             style="opacity: .8">-->
+<!--        <span class="brand-text font-weight-light">桥梁智能检测系统</span>-->
+<!--    </a>-->
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <a class="image" href="#">
+                <img
+                        th:src="@{/dist/img/header.jpg}"
+                        class="img-circle elevation-2"
+                        alt="User Image"
+                >
+            </a>
+            <div class="info">
+                <a href="#" class="d-block" th:text="${session.user.nick}">用户名</a>
+            </div>
+        </div>
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+                <li class="nav-item">
+                    <a th:href="@{/common/index}" th:class="${path}=='index'?'nav-link active':'nav-link'">
+                        <i class="nav-icon fa fa-align-justify"></i>
+                        <p>
+                            基础数据管理
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            病害识别量化
+                            <i class="nav-icon right fa fa-chevron-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/common/index}" th:class="${path}=='index'?'nav-link active':'nav-link'">
+                                <i class="nav-icon fa fa-list-alt"></i>
+                                <p>
+                                    病害列表
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/common/detect}" th:class="${path}=='detect'?'nav-link active':'nav-link'">
+                                <i class="nav-icon fa fa fa-pencil-square-o"></i>
+                                <p>
+                                    在线检测
+                                </p>
+                            </a>
+                        </li>
+
+                        <!-- 图像管理 -->
+                        <li class="nav-item">
+                            <a th:href="@{/common/images}" th:class="${path}=='images'?'nav-link active':'nav-link'">
+                                <i class="fa fa-image nav-icon" aria-hidden="true"></i>
+                                <p>图像管理</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a th:href="@{/common/traffic}" th:class="${path}=='traffic'?'nav-link active':'nav-link'">
+                        <i class="nav-icon fa fa-car"></i>
+                        <p>交通量预测</p>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>
+</html>

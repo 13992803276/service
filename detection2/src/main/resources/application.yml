@@ -1,0 +1,48 @@
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/detection2
+    username: root
+    password: 123456
+  mvc:
+    format:
+      date: yyyy-MM-dd HH:mm:ss
+  redis:
+    host: localhost
+    port: 6379
+    password: 1234
+  servlet:
+    multipart:
+      max-file-size: 36MB
+      max-request-size: 2048MB
+  mail:
+    host: smtp.163.com
+    username: xsliu2010@163.com
+    password: UTKZBNWOYWCIJZEK
+    port: 25
+    protocol: smtp
+    default-encoding: utf-8
+
+server:
+  port: 8080
+  jetty:
+    accesslog:
+      file-date-format:
+  servlet:
+    session:
+      timeout: 7200s
+logging:
+  level:
+    puzz.xsliu.detection2.detection.mapper: debug
+  charset:
+
+file:
+  upload:
+    path: C:/Users/Alex/Desktop/
+
+

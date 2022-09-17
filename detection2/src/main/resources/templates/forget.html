@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>FXDetection | Forget</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="shortcut icon" th:href="@{/dist/img/b2.png}"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" th:href="@{/plugins/fontawesome/css/font-awesome.min.css}"/>
+    <!-- Theme style -->
+    <link rel="stylesheet" th:href="@{/plugins/adminlte/adminlte.css}"/>
+    <style>
+        canvas {
+            display: block;
+            vertical-align: bottom;
+        }
+
+    </style>
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo" style="color: #007bff;">
+        <h1><strong>FX</strong>DETECTION</h1>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">忘记了密码？在这里轻松找回。</p>
+
+            <form name="forgetForm" id="forgetForm">
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="注册邮箱" id="forgetEmail">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fa fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-12">
+                    <button class="btn btn-primary btn-block" onclick="forget()">找回密码</button>
+                </div>
+                <!-- /.col -->
+            </div>
+
+            <p class="mt-3 mb-1 col-12 text-center">
+                <a class="btn btn-block" th:href="@{/common/login}">登录</a>
+            </p>
+            <p class="mb-0 col-12 text-center">
+                <a  class="btn btn-block" th:href="@{/common/register}">注册</a>
+            </p>
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+</div>
+<!-- /.login-box -->
+
+<script th:src="@{/plugins/jquery/jquery.js}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script th:src="@{/plugins/jQueryUI/jquery-ui.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/plugins/adminlte/adminlte.js}"></script>
+<script th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
+<script th:src="@{/dist/js/public.js}"></script>
+
+</body>
+</html>

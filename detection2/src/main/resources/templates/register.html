@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FXDetection | Register</title>
+    <link rel="shortcut icon" th:href="@{/dist/img/b2.png}"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" th:href="@{/plugins/fontawesome/css/font-awesome.min.css}">
+    <!-- 主题样式 -->
+    <link rel="stylesheet" th:href="@{/plugins/adminlte/adminlte.css}">
+</head>
+<body class="hold-transition register-page">
+<div class="login-box">
+    <!-- /.login-logo -->
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href="#" class="h1"><b>FX</b>Detection</a>
+            </div>
+            <div class="card-body ">
+                <h3 class="login-box-msg">用户注册</h3>
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- 昵称 -->
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="昵称" id="nick" name="nick">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fa fa-user fa-fw"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 邮箱 -->
+                            <div class="input-group mb-3">
+                                <input type="email" class="form-control" placeholder="邮箱" id="email" name="email">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fa fa-envelope fa-fw"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 密码 -->
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control" placeholder="输入密码" id="password" name="password">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fa fa-lock fa-fw"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 确认密码 -->
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control" placeholder="确认密码" id="password2" name="password2">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fa fa-lock fa-fw"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr>
+                <div class="social-auth-links text-center">
+
+                    <div class="col-12 ml-auto mr-auto">
+                        <button type="button" class="btn btn-primary btn-block" onclick="register()">注册</button>
+                    </div>
+                    <a class="btn btn-block" th:href="@{/common/login}"> 已有账号,直接登录</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+<!-- /.register-box -->
+
+<!-- jQuery -->
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/plugins/adminlte/adminlte.js}"></script>
+
+<!-- login -->
+<script th:src="@{/dist/js/public.js}"></script>
+<script th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
+<script th:src="@{/plugins/sweetalert/sweetalert.min.js}"></script>
+</body>
+</html>
